@@ -4,6 +4,7 @@
  */
 package com.mycompany.simuladorcompteo;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
@@ -17,10 +18,21 @@ public class SimulatorFrame extends javax.swing.JFrame {
     int outR = 0;
     int tableControl = 0;
     int regNum = 0;
-    Hashtable<Integer, String> entryReg = new Hashtable<>();
-    Hashtable<Integer, String> outReg = new Hashtable<>();
+    ArrayList<String> entryArray = new ArrayList<>();
+    ArrayList<String> outArray = new ArrayList<>();
+    //Hashtable<Integer, String> entryReg = new Hashtable<>();
+    //Hashtable<Integer, String> outReg = new Hashtable<>();
+
+    public ArrayList<String> getEntryArray() {
+        return entryArray;
+    }
+
+    public ArrayList<String> getOutArray() {
+        return outArray;
+    }
 
     public SimulatorFrame() {
+
         initComponents();
     }
 
@@ -73,11 +85,10 @@ public class SimulatorFrame extends javax.swing.JFrame {
         jLabelMachineName = new javax.swing.JLabel();
         jTextFieldMachineName = new javax.swing.JTextField();
         jButtonMachineName = new javax.swing.JButton();
-        jLabelMerge = new javax.swing.JLabel();
         jLabelConjuntos = new javax.swing.JLabel();
         jLabelREntrada = new javax.swing.JLabel();
         jLabelRSaida = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -335,37 +346,57 @@ public class SimulatorFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabelMerge.setText("jLabel3");
-
         jLabelConjuntos.setText("N = Conjuntos de Memória");
 
         jLabelREntrada.setText("N = Conjuntos de Memória");
 
         jLabelRSaida.setText("N = Conjuntos de Memória");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "+", "-", "*", "^2" }));
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(266, 266, 266)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabelMachineName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMachineName))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabelRegNum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxNumberRegisters, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(260, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jRadioButtonAEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonBEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonCEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonDEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonEEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(145, 145, 145)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(147, 147, 147)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButtonAEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonBEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonCEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonDEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonEEntrada)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonFEntrada)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonGEntrada)
@@ -386,67 +417,49 @@ public class SimulatorFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonOEntrada)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonPEntrada))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabelMachineName)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jTextFieldMachineName))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabelRegNum)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxNumberRegisters, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jRadioButtonPEntrada)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addComponent(jRadioButtonASaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonBSaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonCSaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonDSaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonESaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonFSaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonGSaida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)
+                            .addComponent(jLabelConjuntos)
+                            .addComponent(jLabelRegisterNumber)
+                            .addComponent(jLabelREntrada)
+                            .addComponent(jLabelRSaida)
+                            .addComponent(jButtonMachineName)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jRadioButtonASaida)
-                                    .addComponent(jLabelMerge))
+                                .addComponent(jRadioButtonHSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonBSaida)
+                                .addComponent(jRadioButtonISaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonCSaida)
+                                .addComponent(jRadioButtonJSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonDSaida)
+                                .addComponent(jRadioButtonKSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonESaida)
+                                .addComponent(jRadioButtonLSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonFSaida)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jRadioButtonGSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonHSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonISaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonJSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonKSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonLSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonMSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonNSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonOSaida)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButtonPSaida))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(21, 21, 21)
-                                                .addComponent(jButtonMachineName))))
-                                    .addComponent(jLabelConjuntos)
-                                    .addComponent(jLabelRegisterNumber)
-                                    .addComponent(jLabelREntrada)
-                                    .addComponent(jLabelRSaida))))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                                .addComponent(jRadioButtonMSaida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonNSaida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonOSaida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jRadioButtonPSaida)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,9 +471,9 @@ public class SimulatorFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMachineName)
                     .addComponent(jTextFieldMachineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonAEntrada)
                     .addComponent(jRadioButtonBEntrada)
@@ -478,9 +491,9 @@ public class SimulatorFrame extends javax.swing.JFrame {
                     .addComponent(jRadioButtonNEntrada)
                     .addComponent(jRadioButtonOEntrada)
                     .addComponent(jRadioButtonPEntrada))
-                .addGap(20, 20, 20)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel2)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButtonASaida)
                     .addComponent(jRadioButtonBSaida)
@@ -498,13 +511,10 @@ public class SimulatorFrame extends javax.swing.JFrame {
                     .addComponent(jRadioButtonNSaida)
                     .addComponent(jRadioButtonOSaida)
                     .addComponent(jRadioButtonPSaida))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jButtonMachineName))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabelMerge)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonMachineName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelRegisterNumber)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -513,9 +523,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
                 .addComponent(jLabelREntrada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelRSaida)
-                .addGap(42, 42, 42)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addGap(80, 80, 80))
         );
 
         pack();
@@ -525,11 +533,14 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonAEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(1, "a");
+            entryArray.add("a");
+
+            // entryReg.put(1, "a");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(1);
+            // entryReg.remove(1);
+            entryArray.remove("a");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonAEntradaActionPerformed
@@ -537,11 +548,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonBEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(2, "b");
+            //entryReg.put(2, "b");
+            entryArray.add("b");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(2);
+            //entryReg.remove(2);
+            entryArray.remove("b");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonBEntradaActionPerformed
@@ -724,29 +737,34 @@ public class SimulatorFrame extends javax.swing.JFrame {
         this.setLabelRegisterNumber(regNum);
 
         System.out.println(machineName);
-        
-       
-        
+
+
     }//GEN-LAST:event_jComboBoxNumberRegistersActionPerformed
 
     private void jRadioButtonASaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonASaidaActionPerformed
-     if (jRadioButtonASaida.isSelected()) {
+        if (jRadioButtonASaida.isSelected()) {
             outR++;
-            outReg.put(1, "a");
+            //outReg.put(1, "a");
+            outArray.add("a");
+
         } else {
             outR--;
-            outReg.remove(1);
+            //outReg.remove(1);
+            outArray.remove("a");
         }
-        
+
     }//GEN-LAST:event_jRadioButtonASaidaActionPerformed
 
     private void jRadioButtonBSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonBSaidaActionPerformed
         if (jRadioButtonBSaida.isSelected()) {
             outR++;
-            outReg.put(2, "b");
+            //outReg.put(2, "b");
+            outArray.add("b");
+
         } else {
             outR--;
-            outReg.remove(2);
+            //outReg.remove(2);
+            outArray.remove("b");
         }
     }//GEN-LAST:event_jRadioButtonBSaidaActionPerformed
 
@@ -754,11 +772,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonIEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(9, "i");
+            //entryReg.put(9, "i");
+            entryArray.add("i");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(9);
+            //entryReg.remove(9);
+            entryArray.remove("i");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonIEntradaActionPerformed
@@ -767,32 +787,40 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonJEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(10, "j");
+            //entryReg.put(10, "j");
+            entryArray.add("j");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(10);
+            //entryReg.remove(10);
+            entryArray.remove("j");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonJEntradaActionPerformed
 
     private void jRadioButtonISaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonISaidaActionPerformed
-          if (jRadioButtonISaida.isSelected()) {
+        if (jRadioButtonISaida.isSelected()) {
             outR++;
-            outReg.put(9, "i");
+            //outReg.put(9, "i");
+            outArray.add("i");
+
         } else {
             outR--;
-            outReg.remove(9);
+            //outReg.remove(9);
+            outArray.remove("i");
         }
     }//GEN-LAST:event_jRadioButtonISaidaActionPerformed
 
     private void jRadioButtonJSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonJSaidaActionPerformed
-         if (jRadioButtonJSaida.isSelected()) {
+        if (jRadioButtonJSaida.isSelected()) {
             outR++;
-            outReg.put(10, "j");
+            //outReg.put(10, "j");
+            outArray.add("j");
+
         } else {
             outR--;
-            outReg.remove(10);
+            //outReg.remove(10);
+            outArray.remove("j");
         }
     }//GEN-LAST:event_jRadioButtonJSaidaActionPerformed
 
@@ -801,10 +829,10 @@ public class SimulatorFrame extends javax.swing.JFrame {
         jLabelREntrada.setText("N" + entryR + " = Conjuntos de Memória");
         System.out.println(regNum);
         jLabelRSaida.setText("N" + outR + " = Conjuntos de Memória");
-        
+
         machineName = jTextFieldMachineName.getText();
-      
-        jLabelRegisterNumber.setText(machineName + " =(N" +regNum +  ", N" + entryR + ", N" + outR);
+
+        jLabelRegisterNumber.setText(machineName + " =(N" + regNum + ", N" + entryR + ", N" + outR);
 
     }//GEN-LAST:event_jButtonMachineNameActionPerformed
 
@@ -812,11 +840,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonCEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(3, "c");
+            //entryReg.put(3, "c");
+            entryArray.add("c");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(3);
+            // entryReg.remove(3);
+            entryArray.remove("c");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonCEntradaActionPerformed
@@ -825,11 +855,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonDEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(4, "d");
+            //entryReg.put(4, "d");
+            entryArray.add("d");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(4);
+            //entryReg.remove(4);
+            entryArray.remove("d");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonDEntradaActionPerformed
@@ -838,11 +870,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonEEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(5, "e");
+            //entryReg.put(5, "e");
+            entryArray.add("e");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(5);
+            //entryReg.remove(5);
+            entryArray.remove("e");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonEEntradaActionPerformed
@@ -851,11 +885,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonFEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(6, "f");
+            //entryReg.put(6, "f");
+            entryArray.add("f");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(6);
+            //entryReg.remove(6);
+            entryArray.remove("f");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonFEntradaActionPerformed
@@ -864,11 +900,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonGEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(7, "g");
+            //entryReg.put(7, "g");
+            entryArray.add("g");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(7);
+            //entryReg.remove(7);
+            entryArray.remove("g");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonGEntradaActionPerformed
@@ -877,11 +915,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonHEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(8, "h");
+            //entryReg.put(8, "h");
+            entryArray.add("h");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(8);
+            //entryReg.remove(8);
+            entryArray.remove("h");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonHEntradaActionPerformed
@@ -890,11 +930,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonKEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(11, "k");
+            //entryReg.put(11, "k");
+            entryArray.add("k");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(11);
+            // entryReg.remove(11);
+            entryArray.remove("k");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonKEntradaActionPerformed
@@ -903,11 +945,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonLEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(12, "l");
+            //entryReg.put(12, "l");
+            entryArray.add("l");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(12);
+            //entryReg.remove(12);
+            entryArray.remove("l");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonLEntradaActionPerformed
@@ -916,11 +960,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonMEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(13, "m");
+            //entryReg.put(13, "m");
+            entryArray.add("m");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(13);
+            //entryReg.remove(13);
+            entryArray.remove("m");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonMEntradaActionPerformed
@@ -929,11 +975,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonNEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(14, "n");
+            //entryReg.put(14, "n");
+            entryArray.add("n");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(14);
+            //entryReg.remove(14);
+            entryArray.remove("n");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonNEntradaActionPerformed
@@ -942,147 +990,198 @@ public class SimulatorFrame extends javax.swing.JFrame {
         if (jRadioButtonOEntrada.isSelected()) {
             entryR++;
             tableControl++;
-            entryReg.put(15, "o");
+            //entryReg.put(15, "o");
+            entryArray.add("o");
         } else {
             entryR--;
             tableControl--;
-            entryReg.remove(15);
+            //entryReg.remove(15);
+            entryArray.remove("o");
         }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonOEntradaActionPerformed
 
     private void jRadioButtonPEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPEntradaActionPerformed
-    if(jRadioButtonPEntrada.isSelected()){
-        entryR++;
-        tableControl++;
-        entryReg.put(16, "p");
-    } else{
-       entryR--; 
-        tableControl--;
-        entryReg.remove(16);
-    }
+        if (jRadioButtonPEntrada.isSelected()) {
+            entryR++;
+            tableControl++;
+            //entryReg.put(16, "p");
+            entryArray.add("p");
+        } else {
+            entryR--;
+            tableControl--;
+            //entryReg.remove(16);
+            entryArray.remove("p");
+        }
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonPEntradaActionPerformed
 
     private void jRadioButtonCSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCSaidaActionPerformed
         if (jRadioButtonCSaida.isSelected()) {
             outR++;
-            outReg.put(3, "c");
+            //outReg.put(3, "c");
+            outArray.add("c");
+
         } else {
             outR--;
-            outReg.remove(3);
+            //outReg.remove(3);
+            outArray.remove("c");
         }
     }//GEN-LAST:event_jRadioButtonCSaidaActionPerformed
 
     private void jRadioButtonDSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDSaidaActionPerformed
-           if (jRadioButtonDSaida.isSelected()) {
+        if (jRadioButtonDSaida.isSelected()) {
             outR++;
-            outReg.put(4, "d");
+            //outReg.put(4, "d");
+            outArray.add("d");
+
         } else {
             outR--;
-            outReg.remove(4);
+            //outReg.remove(4);
+            outArray.remove("d");
         }
     }//GEN-LAST:event_jRadioButtonDSaidaActionPerformed
 
     private void jRadioButtonESaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonESaidaActionPerformed
-            if (jRadioButtonESaida.isSelected()) {
+        if (jRadioButtonESaida.isSelected()) {
             outR++;
-            outReg.put(5, "e");
+            //outReg.put(5, "e");
+            outArray.add("e");
+
         } else {
             outR--;
-            outReg.remove(5);
+            //outReg.remove(5);
+            outArray.remove("e");
         }
     }//GEN-LAST:event_jRadioButtonESaidaActionPerformed
 
     private void jRadioButtonFSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFSaidaActionPerformed
-            if (jRadioButtonFSaida.isSelected()) {
+        if (jRadioButtonFSaida.isSelected()) {
             outR++;
-            outReg.put(6, "f");
+            //outReg.put(6, "f");
+            outArray.add("f");
+
         } else {
             outR--;
-            outReg.remove(6);
+            //outReg.remove(6);
+            outArray.remove("f");
+
         }
     }//GEN-LAST:event_jRadioButtonFSaidaActionPerformed
 
     private void jRadioButtonGSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonGSaidaActionPerformed
-           if (jRadioButtonGSaida.isSelected()) {
+        if (jRadioButtonGSaida.isSelected()) {
             outR++;
-            outReg.put(7, "g");
+            //outReg.put(7, "g");
+            outArray.add("g");
+
         } else {
             outR--;
-            outReg.remove(7);
+            //outReg.remove(7);
+            outArray.remove("g");
         }
     }//GEN-LAST:event_jRadioButtonGSaidaActionPerformed
 
     private void jRadioButtonHSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonHSaidaActionPerformed
-            if (jRadioButtonHSaida.isSelected()) {
+        if (jRadioButtonHSaida.isSelected()) {
             outR++;
-            outReg.put(8, "h");
+            //outReg.put(8, "h");
+            outArray.add("h");
+
         } else {
             outR--;
-            outReg.remove(8);
+            //outReg.remove(8);
+            outArray.remove("h");
         }
     }//GEN-LAST:event_jRadioButtonHSaidaActionPerformed
 
     private void jRadioButtonKSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonKSaidaActionPerformed
-          if (jRadioButtonKSaida.isSelected()) {
+        if (jRadioButtonKSaida.isSelected()) {
             outR++;
-            outReg.put(11, "k");
+            //outReg.put(11, "k");
+            outArray.add("k");
+
         } else {
             outR--;
-            outReg.remove(11);
+            //outReg.remove(11);
+            outArray.remove("k");
         }
     }//GEN-LAST:event_jRadioButtonKSaidaActionPerformed
 
     private void jRadioButtonLSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonLSaidaActionPerformed
         if (jRadioButtonLSaida.isSelected()) {
             outR++;
-            outReg.put(12, "l");
+            //outReg.put(12, "l");
+            outArray.add("l");
+
         } else {
             outR--;
-            outReg.remove(12);
+            //outReg.remove(12);
+            outArray.remove("l");
         }
     }//GEN-LAST:event_jRadioButtonLSaidaActionPerformed
 
     private void jRadioButtonMSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMSaidaActionPerformed
-           if (jRadioButtonMSaida.isSelected()) {
+        if (jRadioButtonMSaida.isSelected()) {
             outR++;
-            outReg.put(13, "M");
+            //outReg.put(13, "M");
+            outArray.add("m");
+
         } else {
             outR--;
-            outReg.remove(13);
+            //outReg.remove(13);
+            outArray.remove("m");
+
         }
     }//GEN-LAST:event_jRadioButtonMSaidaActionPerformed
 
     private void jRadioButtonNSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNSaidaActionPerformed
-            if (jRadioButtonNSaida.isSelected()) {
+        if (jRadioButtonNSaida.isSelected()) {
             outR++;
-            outReg.put(14, "n");
+            //outReg.put(14, "n");
+            outArray.add("n");
+
         } else {
             outR--;
-            outReg.remove(14);
+            //outReg.remove(14);
+            outArray.remove("n");
         }
     }//GEN-LAST:event_jRadioButtonNSaidaActionPerformed
 
     private void jRadioButtonOSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOSaidaActionPerformed
-           if (jRadioButtonOSaida.isSelected()) {
+        if (jRadioButtonOSaida.isSelected()) {
             outR++;
-            outReg.put(15, "o");
+            //outReg.put(15, "o");
+            outArray.add("o");
+
         } else {
             outR--;
-            outReg.remove(15);
+            //outReg.remove(15);
+            outArray.remove("o");
         }
     }//GEN-LAST:event_jRadioButtonOSaidaActionPerformed
 
     private void jRadioButtonPSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPSaidaActionPerformed
-     if (jRadioButtonPSaida.isSelected()) {
+        if (jRadioButtonPSaida.isSelected()) {
             outR++;
-            outReg.put(16, "p");
+            //outReg.put(16, "p");
+            outArray.add("p");
+
         } else {
             outR--;
-            outReg.remove(16);
+            //outReg.remove(16);
+            outArray.remove("p");
         }
     }//GEN-LAST:event_jRadioButtonPSaidaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        OperationsFrame operationsFrame = new OperationsFrame();
+        operationsFrame.setEntry(entryArray);
+        operationsFrame.setOutput(outArray);
+        operationsFrame.setVisible(true);
+        operationsFrame.showBoxes();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1163,14 +1262,13 @@ public class SimulatorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonMachineName;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxNumberRegisters;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelConjuntos;
     private javax.swing.JLabel jLabelMachineName;
-    private javax.swing.JLabel jLabelMerge;
     private javax.swing.JLabel jLabelREntrada;
     private javax.swing.JLabel jLabelRSaida;
     private javax.swing.JLabel jLabelRegNum;
@@ -1209,4 +1307,5 @@ public class SimulatorFrame extends javax.swing.JFrame {
     private static javax.swing.JRadioButton jRadioButtonPSaida;
     private javax.swing.JTextField jTextFieldMachineName;
     // End of variables declaration//GEN-END:variables
+
 }
