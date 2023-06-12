@@ -6,6 +6,8 @@ package com.mycompany.simuladorcompteo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import javax.swing.DefaultListModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,10 +20,21 @@ public class SimulatorFrame extends javax.swing.JFrame {
     int outR = 0;
     int tableControl = 0;
     int regNum = 0;
+    
+    String allEntryRegisters;
+    String allOutRegisters;
+    
+    
+    DefaultListModel listModel = new DefaultListModel();
+
     ArrayList<String> entryArray = new ArrayList<>();
     ArrayList<String> outArray = new ArrayList<>();
     //Hashtable<Integer, String> entryReg = new Hashtable<>();
     //Hashtable<Integer, String> outReg = new Hashtable<>();
+
+    public void setListModel(DefaultListModel listModel) {
+        this.listModel = listModel;
+    }
 
     public ArrayList<String> getEntryArray() {
         return entryArray;
@@ -88,7 +101,11 @@ public class SimulatorFrame extends javax.swing.JFrame {
         jLabelConjuntos = new javax.swing.JLabel();
         jLabelREntrada = new javax.swing.JLabel();
         jLabelRSaida = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonOperations = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListOperations = new javax.swing.JList<>();
+        jLabelEntrada = new javax.swing.JLabel();
+        jLabelSaida = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -219,7 +236,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Escolha os registradores de saída de dados:");
 
-        jLabelRegisterNumber.setText("zero_reg");
+        jLabelRegisterNumber.setText("Nome");
 
         jRadioButtonPEntrada.setText("P");
         jRadioButtonPEntrada.setToolTipText("");
@@ -352,29 +369,23 @@ public class SimulatorFrame extends javax.swing.JFrame {
 
         jLabelRSaida.setText("N = Conjuntos de Memória");
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonOperations.setText("Operations");
+        jButtonOperations.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonOperationsActionPerformed(evt);
             }
         });
+
+        jScrollPane1.setViewportView(jListOperations);
+
+        jLabelEntrada.setText("Entrada");
+
+        jLabelSaida.setText("Saida");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(266, 266, 266)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabelMachineName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldMachineName))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabelRegNum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxNumberRegisters, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(260, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,48 +429,79 @@ public class SimulatorFrame extends javax.swing.JFrame {
                                 .addComponent(jRadioButtonOEntrada)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jRadioButtonPEntrada)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(69, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jRadioButtonASaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonBSaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonCSaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonDSaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonESaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonFSaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButtonGSaida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabelConjuntos)
-                            .addComponent(jLabelRegisterNumber)
-                            .addComponent(jLabelREntrada)
-                            .addComponent(jLabelRSaida)
-                            .addComponent(jButtonMachineName)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jRadioButtonHSaida)
+                                .addComponent(jRadioButtonASaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonISaida)
+                                .addComponent(jRadioButtonBSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonJSaida)
+                                .addComponent(jRadioButtonCSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonKSaida)
+                                .addComponent(jRadioButtonDSaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonLSaida)
+                                .addComponent(jRadioButtonESaida)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonMSaida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonNSaida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonOSaida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonPSaida)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRadioButtonFSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonGSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonHSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonISaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonJSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonKSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonLSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonMSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonNSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonOSaida)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonPSaida))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(78, 78, 78)
+                                        .addComponent(jButtonMachineName))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButtonOperations)
+                        .addGap(302, 302, 302))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addComponent(jLabelRegisterNumber))
+                            .addComponent(jLabelREntrada)
+                            .addComponent(jLabelConjuntos)
+                            .addComponent(jLabelRSaida)
+                            .addComponent(jLabelEntrada)
+                            .addComponent(jLabelSaida))
+                        .addGap(273, 273, 273))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(266, 266, 266)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabelMachineName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldMachineName))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabelRegNum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxNumberRegisters, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,19 +553,25 @@ public class SimulatorFrame extends javax.swing.JFrame {
                     .addComponent(jRadioButtonNSaida)
                     .addComponent(jRadioButtonOSaida)
                     .addComponent(jRadioButtonPSaida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(jButtonMachineName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelRegisterNumber)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelRegisterNumber)
+                .addGap(7, 7, 7)
                 .addComponent(jLabelConjuntos)
                 .addGap(11, 11, 11)
                 .addComponent(jLabelREntrada)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelRSaida)
-                .addGap(80, 80, 80))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonOperations)
+                .addGap(26, 26, 26)
+                .addComponent(jLabelEntrada)
+                .addGap(29, 29, 29)
+                .addComponent(jLabelSaida)
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -1174,14 +1222,20 @@ public class SimulatorFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jRadioButtonPSaidaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonOperationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOperationsActionPerformed
         OperationsFrame operationsFrame = new OperationsFrame();
         operationsFrame.setEntry(entryArray);
         operationsFrame.setOutput(outArray);
         operationsFrame.setVisible(true);
-        operationsFrame.showBoxes();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        operationsFrame.setNumberRegs(jComboBoxNumberRegisters.getSelectedIndex());
+//operationsFrame.showBoxes();
+        operationsFrame.showAdditionalBoxes();
+        operationsFrame.buildStringEntries();
+        listModel = operationsFrame.getListModel();
+        jListOperations.setModel(listModel);
+
+    }//GEN-LAST:event_jButtonOperationsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1262,17 +1316,20 @@ public class SimulatorFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonMachineName;
+    private javax.swing.JButton jButtonOperations;
     private javax.swing.JComboBox<String> jComboBoxNumberRegisters;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelConjuntos;
+    private javax.swing.JLabel jLabelEntrada;
     private javax.swing.JLabel jLabelMachineName;
     private javax.swing.JLabel jLabelREntrada;
     private javax.swing.JLabel jLabelRSaida;
     private javax.swing.JLabel jLabelRegNum;
     private static javax.swing.JLabel jLabelRegisterNumber;
+    private javax.swing.JLabel jLabelSaida;
+    private javax.swing.JList<String> jListOperations;
     private static javax.swing.JRadioButton jRadioButtonAEntrada;
     private static javax.swing.JRadioButton jRadioButtonASaida;
     private static javax.swing.JRadioButton jRadioButtonBEntrada;
@@ -1305,6 +1362,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
     private static javax.swing.JRadioButton jRadioButtonOSaida;
     private static javax.swing.JRadioButton jRadioButtonPEntrada;
     private static javax.swing.JRadioButton jRadioButtonPSaida;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldMachineName;
     // End of variables declaration//GEN-END:variables
 
