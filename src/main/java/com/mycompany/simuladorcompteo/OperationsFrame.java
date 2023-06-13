@@ -17,6 +17,8 @@ public class OperationsFrame extends javax.swing.JFrame {
     String allEntryRegisters;
     String allOutRegisters;
 
+    int listSize = 1;
+
     DefaultListModel listModel = new DefaultListModel();
 
     public DefaultListModel getListModel() {
@@ -174,7 +176,7 @@ public class OperationsFrame extends javax.swing.JFrame {
         while (i < output.size()) {
             allOutRegisters = allOutRegisters + output.get(i);
             i++;
-            if (i < entry.size()) {
+            if (i < output.size()) {
                 allOutRegisters = allOutRegisters + ",";
             }
 
@@ -206,7 +208,7 @@ public class OperationsFrame extends javax.swing.JFrame {
         return reg;
     }
 
-    public String stringMaker(Registrador r) {
+    /* public String stringMaker(Registrador r) {
 
         String s = r.getRegistradorType() + ": N" + entry.size() + " -> N" + this.getNumberRegs()
                 + " tal que, ∀ " + allEntryRegisters + "∈N " + r.getOperation() + "_" + r.nomeEntrada + "(" + allEntryRegisters
@@ -218,6 +220,20 @@ public class OperationsFrame extends javax.swing.JFrame {
         String s = "Retorna" + ": N" + this.getNumberRegs() + " -> N" + output.size()
                 + " tal que, ∀ " + allOutRegisters + "∈N Retorna_" + r.nomeEntrada + "(" + allEntryRegisters
                 + ")";
+        return s;
+    }*/
+    public String makeOperation() {
+        String s = "";
+        if (jComboBoxDoIf.getSelectedItem() == "Faça") {
+            s = "R" + listSize + ": Faça " + jComboBoxOpertions1.getSelectedItem() + "_" + jComboBoxEntry1.getSelectedItem() + " vá_para " + jTextFieldGoTo.getText();
+            listSize++;
+        } else if (jComboBoxDoIf.getSelectedItem() == "Se") {
+            s = "R" + listSize + ": Se " + jComboBoxOpertions1.getSelectedItem() + "_" + jComboBoxEntry1.getSelectedItem() + " vá_para "
+                    + jTextFieldGoTo.getText() + " senão vá_para " + jTextFieldGoTo1.getText();
+
+            listSize++;
+        }
+
         return s;
     }
 
@@ -239,10 +255,15 @@ public class OperationsFrame extends javax.swing.JFrame {
         jComboBoxSecondEntry1 = new javax.swing.JComboBox<>();
         jComboBoxOut1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxDoIf = new javax.swing.JComboBox<>();
         jButtonAdicionar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListOperations = new javax.swing.JList<>();
+        jButtonDelete = new javax.swing.JButton();
+        jTextFieldGoTo = new javax.swing.JTextField();
+        jTextFieldGoTo1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jComboBoxOpertions1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Soma", "-1", "+1", "^2" }));
         jComboBoxOpertions1.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +280,7 @@ public class OperationsFrame extends javax.swing.JFrame {
 
         jLabel1.setText("Saida:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Faça", "Se" }));
+        jComboBoxDoIf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Faça", "Se" }));
 
         jButtonAdicionar.setText("Adicionar");
         jButtonAdicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -270,6 +291,29 @@ public class OperationsFrame extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jListOperations);
 
+        jButtonDelete.setText("Deletar");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        jTextFieldGoTo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldGoToActionPerformed(evt);
+            }
+        });
+
+        jTextFieldGoTo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldGoTo1ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("vá_para se");
+
+        jLabel3.setText("vá_para");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,30 +321,47 @@ public class OperationsFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(170, 170, 170)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxDoIf, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxOpertions1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jComboBoxEntry1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBoxEntry1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1))
+                            .addComponent(jButtonAdicionar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxOut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxSecondEntry1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxSecondEntry1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDelete)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jButtonAdicionar)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldGoTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jTextFieldGoTo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jComboBoxDoIf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldGoTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldGoTo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
                 .addComponent(jComboBoxOpertions1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxEntry1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -309,11 +370,13 @@ public class OperationsFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxOut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))))
-                .addGap(30, 30, 30)
-                .addComponent(jButtonAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAdicionar)
+                    .addComponent(jButtonDelete))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -330,12 +393,27 @@ public class OperationsFrame extends javax.swing.JFrame {
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
 
         Registrador r = this.saveRegisters();
-        String s = this.stringMaker(r);
-        String s2 = this.stringMakerReturn(r);
+        //String s = this.stringMaker(r);
+        // String s2 = this.stringMakerReturn(r);
+        String s = this.makeOperation();
         listModel.addElement(s);
-        listModel.addElement(s2);
+        //listModel.addElement(s2);
         jListOperations.setModel(listModel);
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        String s = jListOperations.getSelectedValue();
+        listModel.removeElement(s);
+        jListOperations.setModel(listModel);
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jTextFieldGoTo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGoTo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldGoTo1ActionPerformed
+
+    private void jTextFieldGoToActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldGoToActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldGoToActionPerformed
 
     /**
      * @param args the command line arguments
@@ -378,13 +456,18 @@ public class OperationsFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton jButtonAdicionar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JComboBox<String> jComboBoxDoIf;
     private javax.swing.JComboBox<String> jComboBoxEntry1;
     private javax.swing.JComboBox<String> jComboBoxOpertions1;
     private javax.swing.JComboBox<String> jComboBoxOut1;
     private javax.swing.JComboBox<String> jComboBoxSecondEntry1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList<String> jListOperations;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldGoTo;
+    private javax.swing.JTextField jTextFieldGoTo1;
     // End of variables declaration//GEN-END:variables
 }
