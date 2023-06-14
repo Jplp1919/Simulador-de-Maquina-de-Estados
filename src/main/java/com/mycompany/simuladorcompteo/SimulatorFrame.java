@@ -15,19 +15,29 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SimulatorFrame extends javax.swing.JFrame {
 
+    //nome da maquina
     String machineName = "";
+
+    //número de registradores de entrada
     int entryR = 0;
+    //número de registradores de saida
     int outR = 0;
+    //número de registradores selecionados
     int tableControl = 0;
+    //número de registradores
     int regNum = 0;
-    
+
+    //string de todos os registradores de entrada
     String allEntryRegisters;
+    //string de todos os registradores de saida
     String allOutRegisters;
-    
-    
+
+    // modelo para a manipulação da lista
     DefaultListModel listModel = new DefaultListModel();
 
+    //arraylist com os valores de entrada
     ArrayList<String> entryArray = new ArrayList<>();
+    //arraylist com os valores de saida
     ArrayList<String> outArray = new ArrayList<>();
     //Hashtable<Integer, String> entryReg = new Hashtable<>();
     //Hashtable<Integer, String> outReg = new Hashtable<>();
@@ -44,8 +54,8 @@ public class SimulatorFrame extends javax.swing.JFrame {
         return outArray;
     }
 
-    
-        public void buildStringEntries() {
+    //constroi a string com os valroes de entrada separados por uma virgula
+    public void buildStringEntries() {
         StringBuilder stb = new StringBuilder();
         allEntryRegisters = "";
         int i = 0;
@@ -62,6 +72,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
 
     }
 
+    //constroi a string com os valroes de saida separados por uma virgula
     public void buildStringOutput() {
         StringBuilder stb = new StringBuilder();
         allOutRegisters = "";
@@ -78,8 +89,9 @@ public class SimulatorFrame extends javax.swing.JFrame {
         System.out.println(allOutRegisters);
 
     }
-    
-        public String stringMaker() {
+
+    //cria uma string // cria e retorna a string completa de um valor de entrada
+    public String stringMaker() {
 
         String s = "Armazena : N" + entryArray.size() + " -> N" + jComboBoxNumberRegisters.getSelectedItem()
                 + " tal que, ∀ " + allEntryRegisters + "∈N Armazena_" + machineName + "(" + allEntryRegisters
@@ -87,13 +99,14 @@ public class SimulatorFrame extends javax.swing.JFrame {
         return s;
     }
 
+    //cria uma string // cria e retorna a string completa de um valor de entrada
     public String stringMakerReturn() {
         String s = "Retorna" + ": N" + jComboBoxNumberRegisters.getSelectedItem() + " -> N" + outArray.size()
                 + " tal que, ∀ " + allOutRegisters + "∈N Retorna_" + machineName + "(" + allEntryRegisters
                 + ")";
         return s;
     }
-    
+
     public SimulatorFrame() {
 
         initComponents();
@@ -638,6 +651,8 @@ public class SimulatorFrame extends javax.swing.JFrame {
         System.out.println(entryR);
     }//GEN-LAST:event_jRadioButtonBEntradaActionPerformed
 
+    
+    //define o valor da jlabel de acordo com o número de registradores
     private void setLabelRegisterNumber(int num) {
         if (num == 1) {
             jLabelRegisterNumber.setText("um_reg");
@@ -691,6 +706,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
 
     }
 
+    //mostra os botões para selecionar os registradores de acordo com número de regirstradores escolhido
     private void buttonRegVisibility(int num) {
 
         if (num > 0) {
@@ -809,10 +825,14 @@ public class SimulatorFrame extends javax.swing.JFrame {
     }
 
     private void jComboBoxNumberRegistersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxNumberRegistersActionPerformed
+       
+        // pega o número de registradores e o armazena na variavel regNum
         regNum = jComboBoxNumberRegisters.getSelectedIndex();
         System.out.println(regNum);
 
+        // chama o metodo para mostrar/esconder os registradores de acordo com o número selecionado
         this.buttonRegVisibility(regNum);
+        // coloca o valor de regNum como na jlabel
         this.setLabelRegisterNumber(regNum);
 
         System.out.println(machineName);
@@ -820,6 +840,8 @@ public class SimulatorFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jComboBoxNumberRegistersActionPerformed
 
+    // checa se o registrador esta selecionado, caso sim, aumenta outR e adiciona o valor no array
+    //senão diminiu outR e remove o registrador do array
     private void jRadioButtonASaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonASaidaActionPerformed
         if (jRadioButtonASaida.isSelected()) {
             outR++;
@@ -904,13 +926,15 @@ public class SimulatorFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonJSaidaActionPerformed
 
     private void jButtonMachineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMachineNameActionPerformed
+        // muda o valor das jlabels de acordo com os valores informados
         jLabelConjuntos.setText("N" + jComboBoxNumberRegisters.getSelectedIndex() + " = Conjuntos de Memória");
         jLabelREntrada.setText("N" + entryR + " = Conjuntos de Memória");
-        System.out.println(regNum);
+        
         jLabelRSaida.setText("N" + outR + " = Conjuntos de Memória");
 
         machineName = jTextFieldMachineName.getText();
 
+        
         jLabelRegisterNumber.setText(machineName + " =(N" + regNum + ", N" + entryR + ", N" + outR);
         String s = stringMaker();
         String s2 = stringMakerReturn();
@@ -1257,6 +1281,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButtonPSaidaActionPerformed
 
     private void jButtonOperationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOperationsActionPerformed
+        //chama e mostra operationsFrame e passa os dois arrays e o número de registradores para ela
         OperationsFrame operationsFrame = new OperationsFrame();
         operationsFrame.setEntry(entryArray);
         operationsFrame.setOutput(outArray);
@@ -1266,8 +1291,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
 //operationsFrame.showBoxes();
         operationsFrame.showAdditionalBoxes();
         operationsFrame.buildStringEntries();
-       
-        
+
 
     }//GEN-LAST:event_jButtonOperationsActionPerformed
 
@@ -1302,7 +1326,7 @@ public class SimulatorFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SimulatorFrame().setVisible(true);
-
+                // esconde os botões
                 jLabelRegisterNumber.setText("zero_reg");
 
                 jRadioButtonAEntrada.setVisible(false);

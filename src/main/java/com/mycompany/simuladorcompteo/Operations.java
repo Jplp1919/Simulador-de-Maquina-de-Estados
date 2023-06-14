@@ -1,7 +1,8 @@
-
+ 
 package com.mycompany.simuladorcompteo;
 
 
 public enum Operations {
- plus_one, minus_one, addition, squared   
+// Enum com as operações possiveis
+    plus_one, minus_one, addition, squared   
 }

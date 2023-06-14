@@ -10,15 +10,22 @@ import javax.swing.DefaultListModel;
 
 public class OperationsFrame extends javax.swing.JFrame {
 
+    // arraylist com os registradores de entrada
     ArrayList<String> entry = new ArrayList<>();
+    // arraylist com os registradoresd de saida
     ArrayList<String> output = new ArrayList<>();
+    //numero de registradores
     int numberRegs;
 
+    //string com o nome de todos os registradores de entrada escolhidos
     String allEntryRegisters;
+    //string com o nome de todos os registradores de saida escolhidos
     String allOutRegisters;
 
+    //tamanho da lista
     int listSize = 1;
 
+    //modelo para a manipulação de jlist
     DefaultListModel listModel = new DefaultListModel();
 
     public DefaultListModel getListModel() {
@@ -128,6 +135,8 @@ public class OperationsFrame extends javax.swing.JFrame {
         }
 
     }*/
+    
+    //esconde as jcombobox auxiliares
     public void hideAdditionalBoxes() {
         //operation 1
         //jComboBoxEntry1.setVisible(false);
@@ -135,6 +144,7 @@ public class OperationsFrame extends javax.swing.JFrame {
         jComboBoxOut1.setVisible(false);
     }
 
+    //mostra as jcombobox auxiliares
     public void showAdditionalBoxes() {
         if (jComboBoxOpertions1.isVisible()) {
             jComboBoxEntry1.setVisible(true);
@@ -146,11 +156,13 @@ public class OperationsFrame extends javax.swing.JFrame {
         fillAditionalBoxes();
     }
 
+    //coloca os valores de entrada na jcombobox 
     public void fillAditionalBoxes() {
-
+       
         jComboBoxEntry1.setModel(new DefaultComboBoxModel(entry.toArray()));
     }
 
+    //constroi a string com todos os valores de entrada
     public void buildStringEntries() {
         StringBuilder stb = new StringBuilder();
         allEntryRegisters = "";
@@ -168,6 +180,7 @@ public class OperationsFrame extends javax.swing.JFrame {
 
     }
 
+    //constroi a string com todos os valores de saida
     public void buildStringOutput() {
         StringBuilder stb = new StringBuilder();
         allOutRegisters = "";
@@ -185,6 +198,7 @@ public class OperationsFrame extends javax.swing.JFrame {
 
     }
 
+    //preenche um registrador utilizando os valores ecolhidos na jframe
     public Registrador saveRegisters() {
         Registrador reg = new Registrador();
         if (jComboBoxOpertions1.getSelectedItem() == "Soma") {
@@ -222,6 +236,8 @@ public class OperationsFrame extends javax.swing.JFrame {
                 + ")";
         return s;
     }*/
+    
+    // cria e retorna a string da operação
     public String makeOperation() {
         String s = "";
         if (jComboBoxDoIf.getSelectedItem() == "Faça") {
@@ -391,10 +407,11 @@ public class OperationsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxEntry1ActionPerformed
 
     private void jButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarActionPerformed
-
-        Registrador r = this.saveRegisters();
+        
+        //Registrador r = this.saveRegisters();
         //String s = this.stringMaker(r);
         // String s2 = this.stringMakerReturn(r);
+        //executa makeOperation para criar a string da operação, adiciona essa string no modelo e atualiza a lista
         String s = this.makeOperation();
         listModel.addElement(s);
         //listModel.addElement(s2);
@@ -402,6 +419,7 @@ public class OperationsFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAdicionarActionPerformed
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        //deleta a operação selecionada da lista
         String s = jListOperations.getSelectedValue();
         listModel.removeElement(s);
         jListOperations.setModel(listModel);
